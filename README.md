@@ -31,15 +31,25 @@ The BB-PTK model predicts pulmonary dosimetry based on minimal physicochemical i
 ## Repository Structure
 
 BB-PTK-model-Matlab/
+
 ├─ README.md
+
 ├─ LICENSE
+
 ├─ src/
+
 │ ├─ drugil_matlab_400nmol_final.m
+
 │ ├─ LungModel_Rat_tb_D_15_dense_huge_free_final.m
+
 │ ├─ LungModel_Rat_al_D_15_dense_huge_free_final.m
+
 │ └─ LungModelOde.m
+
 ├─ input/
+
 │ └─ input_template.xlsx
+
 └─ output/
 
 ---
@@ -75,7 +85,7 @@ BB-PTK model for alveolar (AL) region.
 function [dy] = LungModelOde(t,x,m,g)
 dy = m*x + g;
 end
-
+```
 ---
 
 ## Model Inputs
@@ -150,22 +160,22 @@ summary_all.csv
 per-compound CSVs
 merged Excel results
 
-Matlab Version
+## Matlab Version
 Developed with:Matlab 2020a
 
-Notes
+## Notes
 Plasma acts as a one-way sink (no recirculation)
 Single-dose simulation
 Designed for high-throughput screening
 Users should verify input consistency before running
 
-Recommended Citation
+## Recommended Citation
 
 If you use this model, please cite the associated thesis or manuscript.
 
 (Citation details will be updated after publication)
 
-License and Contact
+## License and Contact
 
 This code is provided for academic research use.
 
