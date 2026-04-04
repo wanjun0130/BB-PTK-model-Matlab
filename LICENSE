@@ -1,0 +1,45 @@
+BB-PTK Model Code License
+
+Copyright (c) 2026 [Wanjun Zhang]
+
+All rights reserved.
+
+This repository contains the Matlab implementation of a burden-based pulmonary tissue kinetics (BB-PTK) model.
+
+------------------------------------------------------------------
+
+Terms of Use:
+
+1. This code is provided strictly for academic research and educational purposes.
+
+2. Users MUST contact the author by email before:
+   - using the code
+   - reproducing results
+   - modifying the code
+   - redistributing the code
+   - applying the model in any publication or project
+
+3. Commercial use of this code is strictly prohibited without prior written permission.
+
+4. Redistribution (original or modified versions) is not allowed without permission.
+
+5. Proper citation of the original work is required in any academic output.
+
+------------------------------------------------------------------
+
+Disclaimer:
+
+This code is provided "as is", without warranty of any kind.
+
+The author is not responsible for:
+- errors in the code
+- misuse of the model
+- any scientific or practical outcomes derived from this code
+
+------------------------------------------------------------------
+
+Contact:
+
+[Wanjun Zhang]  
+[Qingdao university]  
+Email: [zhangwanjun0130@163.com]
