@@ -91,56 +91,54 @@ end
 ## Model Inputs
 Required columns in Excel:
 
-Column	       Description
-DrugName	     Compound name
-logPN	         Neutral lipophilicity
-pKa	           Acid dissociation constant
-z	             Charge (-1 / 0 / +1)
-obs_T50	       Optional experimental T50
+  Column	       Description
+  DrugName	     Compound name
+  logPN	         Neutral lipophilicity
+  pKa	           Acid dissociation constant
+  z	             Charge (-1 / 0 / +1)
+  obs_T50	       Optional experimental T50
 
 ## Dose Setting
-Total dose:
-dose_all = 400 nmol
-Regional partition:
+Total dose:dose_all = 400 nmol
 
-TB: 280 nmol (70%)
-AL: 120 nmol (30%)
+Regional partition:
+- TB: 280 nmol (70%)
+- AL: 120 nmol (30%)
 
 ## Numerical Implementation
-ODE solver: ode15s
-Simulation duration: 7 days (604800 s)
-Tolerances:
-RelTol = 1e-8
-AbsTol = 1e-10
-Stability improvements:
-expm1-based Nernst–Planck implementation
-neutral molecule bypass (z = 0)
-NaN/Inf pre-checks
+- ODE solver: ode15s
+- Simulation duration: 7 days (604800 s)
+- Tolerances:
+  - RelTol = 1e-8
+  - AbsTol = 1e-10
+- Stability improvements:
+  - expm1-based Nernst–Planck implementation
+  - neutral molecule bypass (z = 0)
+  - NaN/Inf pre-checks
 
 ## Model Outputs
 Time-dependent outputs
-Lung burden (total & tissue)
-Plasma concentration
-Compartment-level profiles
+- Lung burden (total & tissue)
+- Plasma concentration
+- Compartment-level profiles
 
 Summary metrics
-T50
-Lung burden fractions
-Compartment contributions
-Peak metrics
-Regional metrics (TB & AL)
+- T50
+- Lung burden fractions
+- Compartment contributions
+- Peak metrics
+- Regional metrics (TB & AL)
 
 ## Input File Format
 Example:
 
-DrugName	 logPN	 pKa	   z	   obs_T50
-Chem1	     2.30	   8.10	   1	   35
-Chem2	     1.75	   6.50	   -1	   48
+  DrugName	 logPN	 pKa	   z	   obs_T50
+  Chem1	     2.30	   8.10	   1	   35
+  Chem2	     1.75	   6.50	   -1	   48
 
 Notes:
-
-z must be -1 / 0 / +1
-pKa required for charged species
+- z must be -1 / 0 / +1
+- pKa required for charged species
 
 ## How to Run
 Step 1. Place files
@@ -155,19 +153,18 @@ drugil_matlab_400nmol_final
 
 Step 4. Outputs
 Generated in /output:
-
-summary_all.csv
-per-compound CSVs
-merged Excel results
+- summary_all.csv
+- per-compound CSVs
+- merged Excel results
 
 ## Matlab Version
 Developed with:Matlab 2020a
 
 ## Notes
-Plasma acts as a one-way sink (no recirculation)
-Single-dose simulation
-Designed for high-throughput screening
-Users should verify input consistency before running
+- Plasma acts as a one-way sink (no recirculation)
+- Single-dose simulation
+- Designed for high-throughput screening
+- Users should verify input consistency before running
 
 ## Recommended Citation
 
@@ -183,8 +180,8 @@ Users are strongly requested to contact the author by email before using this mo
 
 Contact:
 
-Name: Wanjun Zhang
-Email: zhangwanjun0130@163.com
-See LICENSE for details.
+  Name: Wanjun Zhang
+  Email: zhangwanjun0130@163.com
+  See LICENSE for details.
 
 ---
