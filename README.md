@@ -92,10 +92,15 @@ end
 Required columns in Excel:
 
   Column	       Description
-  DrugName	     Compound name
+
+  pKa            Acid dissociation constant
+  
   logPN	         Neutral lipophilicity
+  
   pKa	           Acid dissociation constant
+  
   z	             Charge (-1 / 0 / +1)
+  
   obs_T50	       Optional experimental T50
 
 ## Dose Setting
@@ -133,7 +138,9 @@ Summary metrics
 Example:
 
   DrugName	 logPN	 pKa	   z	   obs_T50
+  
   Chem1	     2.30	   8.10	   1	   35
+  
   Chem2	     1.75	   6.50	   -1	   48
 
 Notes:
