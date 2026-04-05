@@ -28,6 +28,71 @@ The BB-PTK model predicts pulmonary dosimetry based on minimal physicochemical i
 
 ---
 
+## Methodological Improvements
+
+This implementation extends the published pulmonary transport modeling framework of Yu and Rosania (2010) with several methodological and implementation-level improvements.
+
+### 1. Stabilized Nernst–Planck formulation
+
+The original Nernst–Planck factor,
+
+φ(N) = N / (exp(N) − 1)
+
+was reformulated using a numerically stable implementation:
+
+- φ(N) ≈ 1 − N/2 + N²/12, for |N| < 1e−6
+- φ(N) = N / (exp(N) − 1), otherwise
+
+This modification avoids numerical instability caused by catastrophic cancellation when N is close to zero.
+
+---
+
+### 2. Explicit treatment of neutral molecules (z = 0)
+
+Neutral species are handled explicitly by bypassing ionization partitioning:
+
+```matlab
+isNeutralMol = abs(z) < 1e-12;
+if isNeutralMol
+    fd = 0;
+end
+```
+
+In the actual implementation, the neutral-only branch sets all ionized fractions to zero and bypasses Henderson–Hasselbalch splitting for z = 0 species. This avoids non-physical ionization-related artifacts in transport calculations.
+
+### 3.Transformation into a high-throughput BB-PTK platform
+
+The original compartmental transport framework was further extended into a high-throughput burden-based pulmonary tissue kinetics (BB-PTK) platform.
+
+(a) Mass-based dosimetry representation
+
+Model outputs are converted from concentration-based state variables to compartmental amounts using compartment volumes:
+
+Z = Y × M_v
+
+This enables direct calculation of burden-based pulmonary dosimetry metrics in molar units.
+
+(b) Automated batch computation
+
+The model was expanded from a single-compound computational framework to an automated batch-processing workflow for multiple compounds.
+
+(c) Output of dosimetry metrics
+
+The high-throughput implementation supports automated extraction of key dosimetry outputs, including:
+
+Lung burden (mol)
+Plasma burden (mol)
+Tmax
+AUP
+
+Lung burden is defined as the sum of all lung-associated compartmental amounts:
+
+Lung burden (mol) = Z(1) + Z(2) + Z(3) + Z(4) + Z(5) + Z(6) + Z(7)
+
+These modifications improve numerical robustness, ensure mechanistic consistency for neutral compounds, and enable scalable dosimetry-oriented simulation across multiple chemicals.
+
+---
+
 ## Repository Structure
 
 BB-PTK-model-Matlab/
@@ -188,7 +253,9 @@ Users are strongly requested to contact the author by email before using this mo
 Contact:
 
   Name: Wanjun Zhang
+  
   Email: zhangwanjun0130@163.com
+  
   See LICENSE for details.
 
 ---
