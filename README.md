@@ -66,11 +66,9 @@ The original compartmental transport framework was further extended into a high-
 
 (a) Mass-based dosimetry representation
 
-Model outputs are converted from concentration-based state variables to compartmental amounts using compartment volumes:
+The BB-PTK model internally converts concentration-based state variables into compartmental amounts (mol) using compartment volumes.
 
-Z = Y × M_v
-
-This enables direct calculation of burden-based pulmonary dosimetry metrics in molar units.
+This repository primarily contains post-processing scripts that operate on exported time-course data, where compartmental amounts (mol) are already available.
 
 (b) Automated batch computation
 
@@ -85,9 +83,17 @@ Plasma burden (mol)
 Tmax
 AUP
 
-Lung burden is defined as the sum of all lung-associated compartmental amounts:
+### Lung burden definitions
 
-Lung burden (mol) = Z(1) + Z(2) + Z(3) + Z(4) + Z(5) + Z(6) + Z(7)
+Two lung burden definitions are used:
+
+- Whole-lung burden (including apical epithelial lining, aEp)
+
+  Lung burden (mol) = MaEp + MimEp + McEp + Mint + Msm + MimInt + McEd
+
+- Tissue-only burden (excluding aEp)
+
+  Lung tissue burden (mol) = MimEp + McEp + Mint + Msm + MimInt + McEd
 
 These modifications improve numerical robustness, ensure mechanistic consistency for neutral compounds, and enable scalable dosimetry-oriented simulation across multiple chemicals.
 
@@ -109,7 +115,9 @@ BB-PTK-model-Matlab/
 
 │ ├─ LungModel_Rat_al_D_15_dense_huge_free_final.m
 
-│ └─ LungModelOde.m
+│ ├─ LungModelOde.m
+
+│ └─ batch_plot_and_AUP_final.m
 
 ├─ input/
 
@@ -151,6 +159,36 @@ function [dy] = LungModelOde(t,x,m,g)
 dy = m*x + g;
 end
 ```
+---
+
+### 5. batch_plot_and_AUP_final.m
+
+Batch post-processing and visualization script.
+
+Functions:
+- Reads exported `*_timecourse.csv` files from the output directory
+- Reconstructs or directly reads whole-lung burden and tissue-only lung burden
+- Computes key dosimetry metrics, including:
+  - AUP_lung_mol_h
+  - AUP_lung_pct_h
+  - Pmax_lung_mol
+  - Tmax_lung_h
+  - AUP_plasma_mol_h
+  - Pmax_plasma_mol
+  - Tmax_plasma_h
+  - AUP_lung_tissue_mol_h
+  - Pmax_lung_tissue_mol
+  - Tmax_lung_tissue_h
+  - tissue_to_total_AUP_ratio
+- Calculates plasma concentration-time metrics from plasma burden (`Mp`)
+- Generates batch figures for:
+  - whole-lung vs tissue-only burden
+  - plasma concentration-time profiles
+  - plasma burden-time profiles
+  - combined whole-lung and plasma burden plots
+- Exports all figures to organized output subfolders
+- Writes summary AUP tables to Excel and CSV files
+
 ---
 
 ## Model Inputs
@@ -221,7 +259,7 @@ inputXlsx  = fullfile('input','input_template.xlsx');
 folderPath = fullfile('output');
 
 Step 3. Run in Matlab
-drugil_matlab_400nmol_final
+drugil_matlab_400nmol_final，batch_plot_and_AUP_final
 
 Step 4. Outputs
 Generated in /output:
